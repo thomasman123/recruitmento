@@ -267,7 +267,7 @@ export function SalesRepOnboarding() {
             <div className="space-y-4">
               <h2 className="text-xl font-bold">Job Preferences</h2>
               <div className="space-y-2">
-                <Label>Job Types</Label>
+                <Label>Employment Type</Label>
                 <div className="grid grid-cols-2 gap-2">
                   {["Full-time", "Part-time"].map((jobType) => (
                     <div key={jobType} className="flex items-center space-x-2">
