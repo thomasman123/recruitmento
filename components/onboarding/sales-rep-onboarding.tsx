@@ -55,9 +55,7 @@ export function SalesRepOnboarding() {
 
     // Job Preferences
     jobTypes: [] as string[],
-    salaryExpectation: "",
-    remotePreference: "",
-    willingToRelocate: false,
+    oteExpectation: "",
   })
 
   const updateFormData = (field: string, value: any) => {
@@ -271,7 +269,7 @@ export function SalesRepOnboarding() {
               <div className="space-y-2">
                 <Label>Job Types</Label>
                 <div className="grid grid-cols-2 gap-2">
-                  {["Full-time", "Part-time", "Contract", "Freelance", "Internship", "Temporary"].map((jobType) => (
+                  {["Full-time", "Part-time"].map((jobType) => (
                     <div key={jobType} className="flex items-center space-x-2">
                       <input
                         type="checkbox"
@@ -292,50 +290,21 @@ export function SalesRepOnboarding() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="salaryExpectation">Salary Expectation</Label>
+                <Label htmlFor="oteExpectation">OTE Expectation</Label>
                 <Select
-                  value={formData.salaryExpectation}
-                  onValueChange={(value) => updateFormData("salaryExpectation", value)}
+                  value={formData.oteExpectation}
+                  onValueChange={(value) => updateFormData("oteExpectation", value)}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select salary range" />
+                    <SelectValue placeholder="Select OTE range" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="30k-50k">$30,000 - $50,000</SelectItem>
-                    <SelectItem value="50k-70k">$50,000 - $70,000</SelectItem>
-                    <SelectItem value="70k-100k">$70,000 - $100,000</SelectItem>
-                    <SelectItem value="100k-150k">$100,000 - $150,000</SelectItem>
-                    <SelectItem value="150k+">$150,000+</SelectItem>
+                    <SelectItem value="2-5k">2-5K</SelectItem>
+                    <SelectItem value="5-10k">5-10K</SelectItem>
+                    <SelectItem value="10-20k">10-20K</SelectItem>
+                    <SelectItem value="20k+">20K+</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="remotePreference">Remote Work Preference</Label>
-                <Select
-                  value={formData.remotePreference}
-                  onValueChange={(value) => updateFormData("remotePreference", value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select remote preference" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="remote">Fully Remote</SelectItem>
-                    <SelectItem value="hybrid">Hybrid</SelectItem>
-                    <SelectItem value="onsite">On-site</SelectItem>
-                    <SelectItem value="flexible">Flexible</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex items-center space-x-2 pt-2">
-                <input
-                  type="checkbox"
-                  id="willingToRelocate"
-                  checked={formData.willingToRelocate}
-                  onChange={(e) => updateFormData("willingToRelocate", e.target.checked)}
-                />
-                <Label htmlFor="willingToRelocate" className="font-normal">
-                  I am willing to relocate for the right opportunity
-                </Label>
               </div>
             </div>
           )}
