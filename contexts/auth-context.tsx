@@ -31,34 +31,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
 
-  // Add this function to set a cookie for the middleware
   const setAuthCookie = (userData: User | null) => {
     if (userData) {
-      // Set cookie for server-side auth checks (middleware)
-      document.cookie = `helios_user=${JSON.stringify(userData)}; path=/; max-age=2592000` // 30 days
+      document.cookie = `helios_user=${JSON.stringify(userData)}; path=/; max-age=2592000`
     } else {
-      // Clear the cookie when logging out
       document.cookie = "helios_user=; path=/; max-age=0"
     }
   }
 
   useEffect(() => {
-    // Check if user is logged in
     const storedUser = localStorage.getItem("helios_user")
     if (storedUser) {
       const userData = JSON.parse(storedUser)
       setUser(userData)
-      setAuthCookie(userData) // Set the cookie on initial load
+      setAuthCookie(userData)
     }
     setIsLoading(false)
   }, [])
 
-  // Update the signup function to ensure proper state persistence
   const signup = async (email: string, password: string, name: string, role: UserRole) => {
-    setIsLoading(true)
     try {
-      // In a real app, this would be an API call
-      // Simulating API call with timeout
+      setIsLoading(true)
+      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
       const userData: User = {
@@ -72,9 +66,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       setUser(userData)
       localStorage.setItem("helios_user", JSON.stringify(userData))
-      setAuthCookie(userData) // Set the cookie for middleware
+      setAuthCookie(userData)
 
-      router.push("/onboarding")
+      router.replace("/onboarding")
     } catch (error) {
       console.error("Signup failed:", error)
       throw error
@@ -83,15 +77,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  // Also update the login function for consistency
   const login = async (email: string, password: string) => {
-    setIsLoading(true)
     try {
-      // In a real app, this would be an API call
-      // Simulating API call with timeout
+      setIsLoading(true)
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      // Mock user data - in a real app, this would come from the API
       const userData: User = {
         id: `user_${Math.random().toString(36).substr(2, 9)}`,
         email,
@@ -103,9 +93,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       setUser(userData)
       localStorage.setItem("helios_user", JSON.stringify(userData))
-      setAuthCookie(userData) // Set the cookie for middleware
+      setAuthCookie(userData)
 
-      router.push(userData.onboardingStatus === "completed" ? "/dashboard" : "/onboarding")
+      router.replace(userData.onboardingStatus === "completed" ? "/dashboard" : "/onboarding")
     } catch (error) {
       console.error("Login failed:", error)
       throw error
@@ -117,8 +107,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setUser(null)
     localStorage.removeItem("helios_user")
-    setAuthCookie(null) // Clear the cookie
-    router.push("/")
+    setAuthCookie(null)
+    router.replace("/")
   }
 
   const updateUser = (data: Partial<User>) => {
@@ -126,7 +116,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const updatedUser = { ...user, ...data }
       setUser(updatedUser)
       localStorage.setItem("helios_user", JSON.stringify(updatedUser))
-      setAuthCookie(updatedUser) // Update the cookie
+      setAuthCookie(updatedUser)
     }
   }
 
