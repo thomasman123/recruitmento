@@ -28,7 +28,6 @@ const countries = [
   { code: "FR", name: "France", phoneCode: "+33" },
   { code: "IN", name: "India", phoneCode: "+91" },
   { code: "JP", name: "Japan", phoneCode: "+81" },
-  // Add more countries as needed
 ]
 
 export function SalesRepOnboarding() {
@@ -39,21 +38,14 @@ export function SalesRepOnboarding() {
 
   // Form state
   const [formData, setFormData] = useState({
-    // Personal Information
     phoneCountry: "US",
     phoneNumber: "",
     country: "US",
     bio: "",
-
-    // Sales Experience
     yearsOfExperience: "",
     previousCompanies: "",
     achievements: "",
-
-    // Skills & Expertise
     lifetimeCashCollected: "",
-
-    // Job Preferences
     jobTypes: [] as string[],
     oteExpectation: "",
   })
@@ -63,7 +55,6 @@ export function SalesRepOnboarding() {
   }
 
   const handlePhoneChange = (value: string) => {
-    // Remove any non-digit characters except plus sign
     const cleaned = value.replace(/[^\d+]/g, '')
     updateFormData("phoneNumber", cleaned)
   }
@@ -98,15 +89,16 @@ export function SalesRepOnboarding() {
   const handleSubmit = async () => {
     setIsSubmitting(true)
     try {
-      // In a real app, this would be an API call
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      updateUser({
+      // Update user data
+      await updateUser({
         onboardingStatus: "completed",
         profileData: formData,
       })
 
-      router.push("/dashboard")
+      // Use replace instead of push to avoid the workStore error
+      router.replace("/dashboard")
     } catch (error) {
       console.error("Failed to complete onboarding:", error)
     } finally {
